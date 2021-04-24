@@ -18,5 +18,17 @@
     <ClCompile Include="ProjektALG.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\..\OneDrive - VSB-TUO\2. semestr\ALG I\TestovaciData\SirkaBinarnihoStromu\Tree1.txt" />
+    <Text Include="..\..\..\..\OneDrive - VSB-TUO\2. semestr\ALG I\TestovaciData\SirkaBinarnihoStromu\Tree2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

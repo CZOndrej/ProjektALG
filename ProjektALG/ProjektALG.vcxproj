@@ -139,7 +139,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="ProjektALG.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\..\OneDrive - VSB-TUO\2. semestr\ALG I\TestovaciData\SirkaBinarnihoStromu\Tree1.txt" />
+    <Text Include="..\..\..\..\OneDrive - VSB-TUO\2. semestr\ALG I\TestovaciData\SirkaBinarnihoStromu\Tree2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Node.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
