@@ -21,50 +21,35 @@ ifstream LoadFile(string path)
     return fileStream;
 }
 
-void AddToTree(Node* root, int num)
+void AddNode(Node* node, int num)
 {
-    if (num > root->GetData())
+    if (num > node->GetData())
     {
-        if (root->GetRight() == nullptr)
+        if (node->GetRight() == nullptr)
         {
-            root->SetRight(num);
+            node->SetRight(num);
         }
         else
         {
-            AddToTree(root->GetRight(), num);
+            AddNode(node->GetRight(), num);
         }
     }
     else
     {
-        if (root->GetLeft() == nullptr)
+        if (node->GetLeft() == nullptr)
         {
-            root->SetLeft(num);
+            node->SetLeft(num);
         }
         else
         {
-            AddToTree(root->GetLeft(), num);
+            AddNode(node->GetLeft(), num);
         }
     }
 }
 
-void SumTree(Node* root, int * sum)
+Node* CreateTree(ifstream stream)
 {
-    *sum += root->GetData();
-     if (root->GetLeft() != nullptr)
-        SumTree(root->GetLeft(), sum);
-
-     if (root->GetRight() != nullptr)
-        SumTree(root->GetRight(), sum);
-
-}   
-
-
-
-int main()
-{
-    ifstream stream = LoadFile("Tree2.txt");
-
-    Node * root = nullptr;
+    Node* root = nullptr;
     int num;
 
     while (stream >> num)
@@ -75,19 +60,86 @@ int main()
         }
         else
         {
-            AddToTree(root, num);
+            AddNode(root, num);
         }
     }
+    return root;
+}
 
-    int* sum = new int;
-    *sum = 0;
+int GetSum(Node* root)
+{
+    if (root->GetLeft() != nullptr)
+    {
+        return GetSum(root->GetLeft()) + root->GetData();
+    }
+    if (root->GetRight() != nullptr)
+    {
+        return GetSum(root->GetRight()) + root->GetData();
+    }
+    if ((root->GetRight() == nullptr && root->GetLeft() == nullptr))
+    {
+        return root->GetData();
+    }
+}
 
-    int level = 0;
+int GetHeigth(Node* node)
+{
+    if (node == nullptr)
+    {
+        return 0;
+    }
+    else 
+    {
+        int leftHeight = GetHeigth(node->GetLeft());
+        int rightHeight = GetHeigth(node->GetRight());
 
-    SumTree(root, sum);
-    cout << *sum << endl;
+        if (leftHeight > rightHeight)
+        {
+            return leftHeight + 1;
+        }
+        else
+        {
+           return rightHeight + 1;
+        }
+    }
+}
 
+int GetLevelWidth(Node* root, int level)
+{
+    if (root == nullptr)
+    {
+        return 0;
+    }
+    if (level == 1)
+    {
+        return 1;
+    }
+    else if (level > 1)
+    {
+        return GetLevelWidth(root->GetLeft(), level - 1) + GetLevelWidth(root->GetRight(), level - 1);
+    }
+}
 
+int GetMaxWidth(Node* root)
+{
+    int maxWidth = 0;
+    for (int i = 1; i <= GetHeigth(root); i++)
+    {
+        if (maxWidth < GetLevelWidth(root, i))
+        {
+            maxWidth = GetLevelWidth(root, i);
+        }
+    }
+    return maxWidth;
+}
+
+int main()
+{
+    Node* root = CreateTree(LoadFile("Tree2.txt"));
+
+    
+
+    cout << GetSum(root) << endl;
 }
 
 
